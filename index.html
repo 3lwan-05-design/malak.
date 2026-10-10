@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You Malak Zwina 🌹</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background: radial-gradient(circle at 50% 30%, #1f0b18 0%, #0d040a 60%, #050104 100%);
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      color: #fff;
+    }
+
+    .cursive-font {
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .serif-title {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Stems drawing animation */
+    .stem-path {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      animation: growStem 3.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .stem-path-side-1 {
+      stroke-dasharray: 550;
+      stroke-dashoffset: 550;
+      animation: growStem 3.4s 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    .stem-path-side-2 {
+      stroke-dasharray: 550;
+      stroke-dashoffset: 550;
+      animation: growStem 3.5s 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
+    @keyframes growStem {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    /* Leaves unfolding */
+    .leaf-anim {
+      transform-origin: bottom center;
+      transform: scale(0) rotate(15deg);
+      opacity: 0;
+      animation: unfoldLeaf 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes unfoldLeaf {
+      to {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    /* Rose buds and blooming petals */
+    .rose-bloom-group {
+      transform-origin: center;
+      transform: scale(0.05);
+      opacity: 0;
+      animation: openRose 2.4s cubic-bezier(0.18, 0.89, 0.32, 1.25) forwards;
+    }
+
+    @keyframes openRose {
+      0% {
+        transform: scale(0.05) rotate(-15deg);
+        opacity: 0;
+      }
+      40% {
+        opacity: 1;
+        transform: scale(0.45) rotate(-5deg);
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+      }
+    }
+
+    /* Individual layered petals expanding */
+    .outer-petal {
+      transform-origin: center bottom;
+      animation: petalFlourish 2.2s ease-out forwards;
+    }
+
+    @keyframes petalFlourish {
+      0% {
+        transform: scale(0.3) rotate(0deg);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Floating glowing elements */
+    .floating-heart {
+      position: absolute;
+      pointer-events: none;
+      animation: floatUp 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.5) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.9;
+      }
+      80% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-260px) scale(1.3) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    /* Glow pulse on completed text */
+    .glow-text {
+      text-shadow: 0 0 15px rgba(255, 77, 109, 0.8),
+                   0 0 30px rgba(255, 117, 143, 0.5),
+                   0 0 50px rgba(255, 209, 220, 0.4);
+    }
+
+    .sparkle-dot {
+      position: absolute;
+      background: radial-gradient(circle, #fff, transparent);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: twinkle 2.5s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(0.7); }
+      50% { opacity: 0.9; transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-between min-h-screen relative overflow-hidden select-none">
+
+  <canvas id="ambientCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+  <!-- Ambient light gradients -->
+  <div class="fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-rose-600/10 rounded-full blur-[130px] pointer-events-none z-0"></div>
+  <div class="fixed top-1/3 left-1/3 w-[300px] h-[300px] bg-red-500/10 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+  <main class="relative z-10 w-full max-w-4xl flex flex-col items-center justify-center flex-grow px-3 sm:px-6 py-4 sm:py-6">
+    
+    <!-- Top sweet banner that fades in first -->
+    <div id="introNote" class="text-rose-200/75 tracking-wider sm:tracking-widest uppercase text-[11px] sm:text-xs md:text-sm font-medium mb-1 sm:mb-2 transition-opacity duration-1000 opacity-0 text-center">
+      ✨ A special blooming surprise ✨
+    </div>
+
+    <!-- Rose Bouquet SVG Container - Responsive fluid proportions -->
+    <div class="relative w-full max-w-[500px] h-[48vh] min-h-[250px] max-h-[440px] flex items-center justify-center">
+      
+      <!-- Flower SVG graphics -->
+      <svg id="flowerGardenSvg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet" class="w-full h-full filter drop-shadow-[0_8px_20px_rgba(0,0,0,0.6)]" xmlns="http://www.w3.org/2000/svg">
+        
+        <!-- Definitions for gradients and shadows -->
+        <defs>
+          <!-- Red Rose Gradients -->
+          <radialGradient id="redPetalCore" cx="45%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#ff1a40"/>
+            <stop offset="45%" stop-color="#c40428"/>
+            <stop offset="85%" stop-color="#800018"/>
+            <stop offset="100%" stop-color="#4a000e"/>
+          </radialGradient>
+          <radialGradient id="redPetalOuter" cx="40%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#ff4d6d"/>
+            <stop offset="50%" stop-color="#d90429"/>
+            <stop offset="85%" stop-color="#8c001a"/>
+            <stop offset="100%" stop-color="#590010"/>
+          </radialGradient>
+
+          <!-- White Rose Gradients -->
+          <radialGradient id="whitePetalCore" cx="45%" cy="40%" r="65%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="45%" stop-color="#fdf4f5"/>
+            <stop offset="75%" stop-color="#fce1e4"/>
+            <stop offset="100%" stop-color="#e8b4bc"/>
+          </radialGradient>
+          <radialGradient id="whitePetalOuter" cx="40%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="60%" stop-color="#f8edeb"/>
+            <stop offset="85%" stop-color="#ebd2d8"/>
+            <stop offset="100%" stop-color="#c99ea8"/>
+          </radialGradient>
+
+          <!-- Stem Gradients -->
+          <linearGradient id="stemGreen" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#14361b"/>
+            <stop offset="50%" stop-color="#2d6a4f"/>
+            <stop offset="100%" stop-color="#52b788"/>
+          </linearGradient>
+
+          <linearGradient id="leafGreen" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#74c69d"/>
+            <stop offset="60%" stop-color="#2d6a4f"/>
+            <stop offset="100%" stop-color="#1b4332"/>
+          </linearGradient>
+
+          <!-- Glow Filter -->
+          <filter id="bloomGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+          </filter>
+        </defs>
+
+        <!-- Stems Group -->
+        <g id="stemsGroup" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          
+          <!-- Base Ground Mist -->
+          <ellipse cx="300" cy="570" rx="140" ry="12" fill="rgba(15,28,18,0.7)" />
+
+          <!-- Left Stem (Supporting White Rose) -->
+          <path class="stem-path-side-1" d="M 300 560 Q 260 440 200 320 Q 180 275 190 220" stroke="url(#stemGreen)" stroke-width="7"/>
+          
+          <!-- Right Stem (Supporting White Rose) -->
+          <path class="stem-path-side-2" d="M 300 560 Q 340 430 400 315 Q 420 270 410 220" stroke="url(#stemGreen)" stroke-width="7"/>
+
+          <!-- Far Left Small Stem (Small Red Accent) -->
+          <path class="stem-path-side-1" d="M 285 550 Q 210 460 135 340 Q 120 300 125 260" stroke="url(#stemGreen)" stroke-width="5.5"/>
+
+          <!-- Far Right Small Stem (Small Red Accent) -->
+          <path class="stem-path-side-2" d="M 315 550 Q 390 460 465 340 Q 480 300 475 260" stroke="url(#stemGreen)" stroke-width="5.5"/>
+
+          <!-- Center Main Stem (Center Big Red Rose) -->
+          <path class="stem-path" d="M 300 565 Q 295 430 305 300 Q 302 230 300 160" stroke="url(#stemGreen)" stroke-width="8.5"/>
+        </g>
+
+        <!-- Leaves Group -->
+        <g id="leavesGroup">
+          <!-- Center Stem Leaves -->
+          <path class="leaf-anim" style="animation-delay: 1.2s;" d="M 298 420 C 260 410 220 430 215 450 C 245 465 285 450 298 420 Z" fill="url(#leafGreen)"/>
+          <path class="leaf-anim" style="animation-delay: 1.4s;" d="M 302 380 C 340 365 375 385 385 405 C 355 420 315 405 302 380 Z" fill="url(#leafGreen)"/>
+          <path class="leaf-anim" style="animation-delay: 1.6s;" d="M 300 280 C 265 260 235 275 225 295 C 255 305 285 295 300 280 Z" fill="url(#leafGreen)"/>
+          <path class="leaf-anim" style="animation-delay: 1.8s;" d="M 302 250 C 335 230 365 245 375 265 C 345 280 315 268 302 250 Z" fill="url(#leafGreen)"/>
+
+          <!-- Left Stems Leaves -->
+          <path class="leaf-anim" style="animation-delay: 1.5s;" d="M 230 380 C 185 385 160 415 158 430 C 190 435 225 410 230 380 Z" fill="url(#leafGreen)"/>
+          <path class="leaf-anim" style="animation-delay: 2.0s;" d="M 188 280 C 150 270 130 290 125 305 C 155 315 180 298 188 280 Z" fill="url(#leafGreen)"/>
+
+          <!-- Right Stems Leaves -->
+          <path class="leaf-anim" style="animation-delay: 1.7s;" d="M 370 375 C 415 375 440 405 442 420 C 410 430 375 405 370 375 Z" fill="url(#leafGreen)"/>
+          <path class="leaf-anim" style="animation-delay: 2.1s;" d="M 412 280 C 450 270 470 290 475 305 C 445 315 420 298 412 280 Z" fill="url(#leafGreen)"/>
+        </g>
+
+        
+        <!-- 1. FAR LEFT: RED MINI ROSE (Blooming delay: 2.0s) -->
+        <g id="roseFarLeft" class="rose-bloom-group" style="transform-origin: 125px 260px; animation-delay: 2.0s;">
+          <!-- Sepals -->
+          <path d="M 125 260 C 115 280 100 285 95 290 C 115 280 125 270 125 260 Z" fill="#1b4332"/>
+          <path d="M 125 260 C 135 280 150 285 155 290 C 135 280 125 270 125 260 Z" fill="#1b4332"/>
+          <!-- Petals Red -->
+          <g transform="translate(125, 255) scale(0.65)">
+            <ellipse cx="0" cy="10" rx="32" ry="24" fill="url(#redPetalOuter)" />
+            <path d="M -30 0 C -40 -25 -10 -40 0 -25 C 15 -40 40 -25 30 0 C 20 25 -20 25 -30 0 Z" fill="url(#redPetalCore)"/>
+            <path d="M -20 -10 C -25 -30 5 -35 15 -20 C 25 -10 10 15 -10 10 Z" fill="#ff4d6d" opacity="0.85"/>
+            <ellipse cx="0" cy="-10" rx="12" ry="14" fill="#a4001b"/>
+            <circle cx="-1" cy="-11" r="6" fill="#54000e"/>
+          </g>
+        </g>
+
+        <!-- 2. FAR RIGHT: RED MINI ROSE (Blooming delay: 2.1s) -->
+        <g id="roseFarRight" class="rose-bloom-group" style="transform-origin: 475px 260px; animation-delay: 2.1s;">
+          <!-- Sepals -->
+          <path d="M 475 260 C 465 280 450 285 445 290 C 465 280 475 270 475 260 Z" fill="#1b4332"/>
+          <path d="M 475 260 C 485 280 500 285 505 290 C 485 280 475 270 475 260 Z" fill="#1b4332"/>
+          <!-- Petals Red -->
+          <g transform="translate(475, 255) scale(0.65)">
+            <ellipse cx="0" cy="10" rx="32" ry="24" fill="url(#redPetalOuter)" />
+            <path d="M -30 0 C -40 -25 -10 -40 0 -25 C 15 -40 40 -25 30 0 C 20 25 -20 25 -30 0 Z" fill="url(#redPetalCore)"/>
+            <path d="M -20 -10 C -25 -30 5 -35 15 -20 C 25 -10 10 15 -10 10 Z" fill="#ff4d6d" opacity="0.85"/>
+            <ellipse cx="0" cy="-10" rx="12" ry="14" fill="#a4001b"/>
+            <circle cx="1" cy="-11" r="6" fill="#54000e"/>
+          </g>
+        </g>
+
+        <!-- 3. LEFT MID: ELEGANT WHITE ROSE (Blooming delay: 2.3s) -->
+        <g id="roseMidLeft" class="rose-bloom-group" style="transform-origin: 190px 215px; animation-delay: 2.3s;">
+          <!-- Sepals -->
+          <path d="M 190 220 C 175 245 155 250 145 255 C 170 245 185 235 190 220 Z" fill="#2d6a4f"/>
+          <path d="M 190 220 C 205 245 225 250 235 255 C 210 245 195 235 190 220 Z" fill="#2d6a4f"/>
+          
+          <!-- White Rose Petals Structure -->
+          <g transform="translate(190, 205) scale(0.95)">
+            <!-- Outer Petals Layer 1 -->
+            <path class="outer-petal" d="M -45 5 C -65 -25 -30 -60 -5 -45 C 5 -45 35 -65 50 -25 C 60 5 35 40 -5 45 C -35 45 -55 25 -45 5 Z" fill="url(#whitePetalOuter)" opacity="0.95"/>
+            <!-- Outer Petals Layer 2 -->
+            <path d="M -40 -15 C -50 -45 -15 -65 10 -50 C 35 -55 55 -30 45 -5 C 40 25 5 35 -20 30 C -45 20 -45 -5 -40 -15 Z" fill="#ffffff" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.15))"/>
+            <!-- Mid Petals -->
+            <path d="M -30 -10 C -40 -35 -10 -50 15 -35 C 35 -35 40 -10 30 10 C 20 25 -10 30 -25 15 C -35 5 -32 -5 -30 -10 Z" fill="url(#whitePetalCore)"/>
+            <!-- Inner Swirl Petals -->
+            <path d="M -20 -15 C -25 -30 5 -40 20 -25 C 28 -15 22 10 5 15 C -15 15 -22 -5 -20 -15 Z" fill="#fff" />
+            <path d="M -12 -18 C -15 -28 10 -32 18 -18 C 22 -6 8 8 -5 5 C -15 2 -16 -12 -12 -18 Z" fill="#fce1e4"/>
+            <!-- Rose Core Bud -->
+            <ellipse cx="2" cy="-10" rx="9" ry="11" fill="#f8c3cd" opacity="0.9"/>
+            <circle cx="2" cy="-10" r="5" fill="#f19fb0"/>
+            <path d="M 0 -13 Q 5 -7 1 -5 Q -2 -7 0 -13" fill="#df788e"/>
+          </g>
+        </g>
+
+        <!-- 4. RIGHT MID: ELEGANT WHITE ROSE (Blooming delay: 2.5s) -->
+        <g id="roseMidRight" class="rose-bloom-group" style="transform-origin: 410px 215px; animation-delay: 2.5s;">
+          <!-- Sepals -->
+          <path d="M 410 220 C 395 245 375 250 365 255 C 390 245 405 235 410 220 Z" fill="#2d6a4f"/>
+          <path d="M 410 220 C 425 245 445 250 455 255 C 430 245 415 235 410 220 Z" fill="#2d6a4f"/>
+
+          <!-- White Rose Petals Structure -->
+          <g transform="translate(410, 205) scale(0.95)">
+            <!-- Outer Petals Layer 1 -->
+            <path class="outer-petal" d="M -45 5 C -65 -25 -30 -60 -5 -45 C 5 -45 35 -65 50 -25 C 60 5 35 40 -5 45 C -35 45 -55 25 -45 5 Z" fill="url(#whitePetalOuter)" opacity="0.95"/>
+            <!-- Outer Petals Layer 2 -->
+            <path d="M -40 -15 C -50 -45 -15 -65 10 -50 C 35 -55 55 -30 45 -5 C 40 25 5 35 -20 30 C -45 20 -45 -5 -40 -15 Z" fill="#ffffff" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.15))"/>
+            <!-- Mid Petals -->
+            <path d="M -30 -10 C -40 -35 -10 -50 15 -35 C 35 -35 40 -10 30 10 C 20 25 -10 30 -25 15 C -35 5 -32 -5 -30 -10 Z" fill="url(#whitePetalCore)"/>
+            <!-- Inner Swirl Petals -->
+            <path d="M -20 -15 C -25 -30 5 -40 20 -25 C 28 -15 22 10 5 15 C -15 15 -22 -5 -20 -15 Z" fill="#fff" />
+            <path d="M -12 -18 C -15 -28 10 -32 18 -18 C 22 -6 8 8 -5 5 C -15 2 -16 -12 -12 -18 Z" fill="#fce1e4"/>
+            <!-- Rose Core Bud -->
+            <ellipse cx="-1" cy="-10" rx="9" ry="11" fill="#f8c3cd" opacity="0.9"/>
+            <circle cx="-1" cy="-10" r="5" fill="#f19fb0"/>
+            <path d="M -2 -13 Q 3 -7 -1 -5 Q -4 -7 -2 -13" fill="#df788e"/>
+          </g>
+        </g>
+
+        <!-- 5. CENTER: MAJESTIC ROYAL RED ROSE (Blooming delay: 2.8s) -->
+        <g id="roseCenter" class="rose-bloom-group" style="transform-origin: 300px 155px; animation-delay: 2.8s;">
+          <!-- Sepals under the rose -->
+          <path d="M 300 160 C 275 195 240 205 230 215 C 265 198 290 185 300 160 Z" fill="#1b4332"/>
+          <path d="M 300 160 C 325 195 360 205 370 215 C 335 198 310 185 300 160 Z" fill="#1b4332"/>
+          <path d="M 300 160 C 295 190 290 220 293 230 C 298 205 300 190 300 160 Z" fill="#14361b"/>
+
+          <!-- Velvet Red Rose Petals Assembly -->
+          <g transform="translate(300, 140) scale(1.28)">
+            <!-- Ambient Behind Glow -->
+            <circle cx="0" cy="0" r="55" fill="rgba(255, 30, 80, 0.2)" filter="url(#bloomGlow)"/>
+
+            <!-- Outer Tier Petals -->
+            <path class="outer-petal" d="M -55 5 C -80 -25 -40 -70 -10 -55 C 5 -55 45 -75 65 -30 C 78 5 45 50 -10 55 C -50 55 -70 30 -55 5 Z" fill="url(#redPetalOuter)"/>
+            <path d="M -50 -18 C -65 -50 -20 -75 12 -60 C 45 -65 70 -35 55 -5 C 50 30 10 42 -25 38 C -55 25 -58 -5 -50 -18 Z" fill="#b70928"/>
+
+            <!-- Mid Tier Layer -->
+            <path d="M -38 -12 C -50 -42 -12 -58 18 -42 C 45 -42 52 -12 40 12 C 28 30 -12 36 -32 18 C -45 5 -40 -6 -38 -12 Z" fill="url(#redPetalCore)"/>
+            <path d="M -30 -8 C -42 -32 -5 -48 18 -32 C 38 -32 40 -8 28 12 C 16 25 -10 28 -24 14 Z" fill="#ff1a40" opacity="0.65"/>
+
+            <!-- Deep Inner Petals Spiral -->
+            <path d="M -25 -18 C -32 -36 8 -48 26 -30 C 35 -18 28 12 8 18 C -18 18 -28 -5 -25 -18 Z" fill="#800018"/>
+            <path d="M -18 -20 C -22 -32 10 -38 20 -20 C 26 -8 10 10 -6 6 C -18 2 -20 -12 -18 -20 Z" fill="#ff3355" opacity="0.85"/>
+            
+            <!-- Innermost Core Cup -->
+            <ellipse cx="1" cy="-12" rx="13" ry="15" fill="#4d000e"/>
+            <ellipse cx="2" cy="-13" rx="8" ry="10" fill="#a4001b"/>
+            <path d="M -3 -16 Q 4 -10 0 -6 Q -5 -9 -3 -16" fill="#ff758f"/>
+          </g>
+        </g>
+
+      </svg>
+    </div>
+
+    <!-- Message Container: Revealed after blooms are complete (~4.8s) -->
+    <div id="loveMessageCard" class="mt-2 sm:mt-4 flex flex-col items-center text-center opacity-0 transform translate-y-6 transition-all duration-1000 ease-out z-20 px-2 sm:px-4 w-full">
+      
+      <!-- Mini Decorative Top Ribbon -->
+      <div class="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
+        <span class="w-6 sm:w-16 h-[1px] bg-gradient-to-r from-transparent via-rose-400 to-rose-200"></span>
+        <span class="text-rose-400 text-sm sm:text-base animate-pulse">💖</span>
+        <span class="w-6 sm:w-16 h-[1px] bg-gradient-to-l from-transparent via-rose-400 to-rose-200"></span>
+      </div>
+
+      <!-- Dedicated Big Message: Fluid and wrap-friendly -->
+      <div class="relative flex items-center justify-center flex-wrap max-w-full px-2">
+        <h1 class="cursive-font text-4xl xs:text-5xl sm:text-7xl md:text-8xl font-normal text-rose-100 glow-text tracking-wide leading-tight break-words">
+          For you Malak zwina
+        </h1>
+        
+        <!-- Animated Heart Icon Next to Message -->
+        <span id="heartAnchor" class="inline-flex items-center justify-center ml-2 text-2xl xs:text-3xl sm:text-5xl animate-bounce drop-shadow-[0_0_12px_rgba(255,50,90,0.9)] select-none">
+          ❤️
+        </span>
+      </div>
+
+      <!-- Interactive Buttons: Touch-friendly sizing -->
+      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
+        <button id="tapHeartsBtn" class="px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-rose-600 via-pink-600 to-rose-500 text-white font-medium text-xs sm:text-sm shadow-lg shadow-rose-900/40 hover:shadow-rose-600/60 active:scale-95 transition-all duration-300 flex items-center gap-2 border border-rose-300/30 touch-manipulation">
+          <span>Tol9i l9louba hhhhhh</span> 
+          <span class="text-sm sm:text-base">💕</span>
+        </button>
+
+        <button id="replayBtn" class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 backdrop-blur-md text-rose-100 font-medium text-xs sm:text-sm border border-rose-200/20 transition-all duration-300 flex items-center gap-2 touch-manipulation">
+          <span>Replay Bloom 🔄</span>
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="relative z-10 w-full text-center py-2 sm:py-3 px-2 text-[10px] sm:text-xs text-rose-300/60 font-light tracking-wide">
+    Made by Alae with pure love for Malak. • Click anywhere to blossom hearts 🌸
+  </footer>
+  <!-- Floating hearts container overlay -->
+  <div id="heartsRainContainer" class="fixed inset-0 pointer-events-none z-30 overflow-hidden"></div>
+
+  <script>
+    // State and references
+    const messageCard = document.getElementById('loveMessageCard');
+    const introNote = document.getElementById('introNote');
+    const heartsRainContainer = document.getElementById('heartsRainContainer');
+    const heartAnchor = document.getElementById('heartAnchor');
+    const tapHeartsBtn = document.getElementById('tapHeartsBtn');
+    const replayBtn = document.getElementById('replayBtn');
+    const canvas = document.getElementById('ambientCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let animationComplete = false;
+    let heartSpamInterval = null;
+
+    // Web Audio Synthesizer for gentle romantic harp/chimes when blooming and interacting
+    let audioCtx = null;
+
+    function playGentleChime(freq = 523.25, type = 'sine', duration = 1.2) {
+      try {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) audioCtx = new AudioContextClass();
+        }
+        if (!audioCtx) return;
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        // Soft exponential envelope
+        gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {
+        // Audio is optional and non-blocking
+      }
+    }
+
+    // Play a gentle blooming arpeggio chord
+    function playBloomMelody() {
+      const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99]; // C major romantic chord
+      notes.forEach((freq, idx) => {
+        setTimeout(() => {
+          playGentleChime(freq, 'sine', 1.6);
+        }, idx * 190);
+      });
+    }
+
+    // Canvas background ambient dust & sparkling stars
+    let particles = [];
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class DustParticle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2.2 + 0.6;
+        this.speedY = Math.random() * 0.4 + 0.1;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.alpha = Math.random() * 0.6 + 0.2;
+        this.pulse = Math.random() * 0.02 + 0.005;
+        this.color = Math.random() > 0.4 ? '255, 180, 200' : '255, 255, 255';
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        this.alpha += Math.sin(Date.now() * this.pulse) * 0.008;
+        if (this.y < 0 || this.alpha < 0) {
+          this.reset();
+          this.y = canvas.height + 10;
+        }
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${this.color}, ${Math.max(0.1, Math.min(0.9, this.alpha))})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = 'rgba(255, 150, 180, 0.8)';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    for (let i = 0; i < 45; i++) {
+      particles.push(new DustParticle());
+    }
+
+    function animateCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateCanvas);
+    }
+    animateCanvas();
+
+    // Spawn floating heart at position
+    function spawnFloatingHeart(x, y, customText = null) {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart select-none text-2xl';
+      
+      const emojis = ['❤️', '💖', '🌹', '🤍', '✨', '💕', '🥰', '🌸'];
+      heart.textContent = customText || emojis[Math.floor(Math.random() * emojis.length)];
+
+      const posX = x !== undefined ? x : (window.innerWidth / 2 + (Math.random() - 0.5) * 260);
+      const posY = y !== undefined ? y : (window.innerHeight * 0.68 + (Math.random() - 0.5) * 50);
+
+      heart.style.left = `${posX}px`;
+      heart.style.top = `${posY}px`;
+      heart.style.fontSize = `${Math.floor(Math.random() * 18 + 20)}px`;
+      heart.style.zIndex = '35';
+
+      heartsRainContainer.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 4200);
+    }
+
+    // Sequence the blooming reveal
+    function startBloomSequence() {
+      // Show intro text
+      setTimeout(() => {
+        introNote.classList.remove('opacity-0');
+        introNote.classList.add('opacity-100');
+      }, 600);
+
+      // Rose blooming triggers around 2.2s -> 4.5s
+      setTimeout(() => {
+        playBloomMelody();
+      }, 2800);
+
+      // Once flowers finish growing (~4.8 seconds)
+      setTimeout(() => {
+        revealMessage();
+      }, 4800);
+    }
+
+    function revealMessage() {
+      animationComplete = true;
+      
+      // Reveal the love message smoothly
+      messageCard.classList.remove('opacity-0', 'translate-y-8');
+      messageCard.classList.add('opacity-100', 'translate-y-0');
+
+      // Chime of completion
+      playGentleChime(783.99, 'sine', 2.0);
+
+      // Continuous pleasant hearts next to the message
+      if (heartSpamInterval) clearInterval(heartSpamInterval);
+      
+      // Burst of hearts around message
+      for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+          const rect = heartAnchor.getBoundingClientRect();
+          spawnFloatingHeart(rect.left + 15 + (Math.random() - 0.5) * 100, rect.top - 10 + (Math.random() - 0.5) * 50);
+        }, i * 160);
+      }
+
+      // Continuous gentle floating hearts
+      heartSpamInterval = setInterval(() => {
+        const rect = heartAnchor.getBoundingClientRect();
+        if (rect) {
+          spawnFloatingHeart(
+            rect.left + 15 + (Math.random() - 0.5) * 120,
+            rect.top + (Math.random() - 0.5) * 40
+          );
+        }
+      }, 800);
+    }
+
+    // Handle interactive clicks on page to spawn flowers and hearts
+    window.addEventListener('pointerdown', (e) => {
+      // Don't duplicate when clicking action buttons
+      if (e.target.closest('button')) return;
+
+      playGentleChime(440 + Math.random() * 300, 'sine', 0.8);
+
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          spawnFloatingHeart(
+            e.clientX + (Math.random() - 0.5) * 40,
+            e.clientY + (Math.random() - 0.5) * 40
+          );
+        }, i * 90);
+      }
+    });
+
+    // Button: Tap for hearts shower
+    tapHeartsBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playGentleChime(659.25, 'triangle', 1.0);
+      
+      for (let i = 0; i < 15; i++) {
+        setTimeout(() => {
+          const x = Math.random() * window.innerWidth;
+          const y = window.innerHeight * 0.7 + Math.random() * 100;
+          spawnFloatingHeart(x, y);
+        }, i * 90);
+      }
+    });
+
+    // Button: Replay Blooming Animation
+    replayBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (heartSpamInterval) clearInterval(heartSpamInterval);
+
+      // Reset message
+      messageCard.classList.remove('opacity-100', 'translate-y-0');
+      messageCard.classList.add('opacity-0', 'translate-y-8');
+      introNote.classList.remove('opacity-100');
+      introNote.classList.add('opacity-0');
+
+      // Re-trigger SVG animations by cloning SVG
+      const svg = document.getElementById('flowerGardenSvg');
+      const clone = svg.cloneNode(true);
+      svg.parentNode.replaceChild(clone, svg);
+
+      // Re-run sequence
+      startBloomSequence();
+    });
+
+    // Start everything on window load
+    window.onload = function () {
+      startBloomSequence();
+    };
+  </script>
+</body>
+</html>
